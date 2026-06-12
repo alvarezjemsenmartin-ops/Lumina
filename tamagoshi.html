@@ -1,0 +1,231 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="css.css">
+<title>Mascota Virtual</title>
+
+
+<script>
+
+let hambre = Math.floor(Math.random() * 100);
+let sueno = Math.floor(Math.random() * 100);
+let salud = Math.floor(Math.random() * 100);
+let diver = Math.floor(Math.random() * 100);
+let sucio = Math.floor(Math.random() * 100);
+let musical = Math.floor(Math.random() * 100);
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("lblPorcentajeHambre").innerHTML =
+         hambre + "%";
+  document.getElementById("lblPorcentajeSueno").innerHTML =
+         sueno + "%";
+  document.getElementById("lblPorcentajeSalud").innerHTML =
+         salud + "%";
+  document.getElementById("lblPorcentajeDiver").innerHTML =
+         diver + "%";
+  document.getElementById("lblPorcentajeSucio").innerHTML =
+         sucio + "%";
+  document.getElementById("lblPorcentajeMusical").innerHTML =
+         musical + "%";
+    actualizarImg();
+});
+
+function dragstartHandler(ev){
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function dragoverHandler(ev){
+    ev.preventDefault();
+}
+
+function dropHandler(ev){
+
+    ev.preventDefault();
+
+    const data = ev.dataTransfer.getData("text");
+
+    
+    if(data == "comida" && hambre>0){
+       
+        hambre -= 5;
+        document.getElementById("zonaMascota").style.backgroundImage ="url('img/lumer.png')";
+         console.log("comida");
+        if(hambre < 0) hambre = 0;
+    }
+    if(data == "cama" && sueno>0){
+        sueno -= sueno;
+        document.getElementById("zonaMascota").style.backgroundImage ="url('img/lumir.png')";
+        if(sueno < 0) sueno = 0;
+    }
+    if(data == "cura" && salud>0){
+        salud -= 5;
+        document.getElementById("zonaMascota").style.backgroundImage ="url('img/Lurar.png')";
+        if(salud < 0) salud = 0;
+    }
+    if(data == "juego" && diver>0){
+        diver -= 5;
+        document.getElementById("zonaMascota").style.backgroundImage ="url('img/lugar.png')";
+        if(diver < 0) diver = 0;
+    }
+    if(data == "baño" && sucio>0){
+        sucio -= sucio;
+        document.getElementById("zonaMascota").style.backgroundImage ="url('img/luña.png')";
+        if(sucio < 0) sucio = 0;
+    }
+    if(data == "musica" && musical>0){
+        musical -= 5;
+        document.getElementById("zonaMascota").style.backgroundImage ="url('img/Lurina.png')";
+        if(musical < 0) musical = 0;
+    }
+
+    actualizarLabels();
+    setTimeout(() => {actualizarImg();}, 2000);
+
+  
+}
+
+function actualizarLabels(){
+
+    document.getElementById("lblPorcentajeHambre").innerHTML =
+         hambre + "%";
+    document.getElementById("lblPorcentajeSueno").innerHTML =
+         sueno + "%";
+    document.getElementById("lblPorcentajeSalud").innerHTML =
+         salud + "%";
+    document.getElementById("lblPorcentajeDiver").innerHTML =
+         diver + "%";
+    document.getElementById("lblPorcentajeSucio").innerHTML =
+         sucio + "%";
+    document.getElementById("lblPorcentajeMusical").innerHTML =
+         musical + "%";
+}
+
+function actualizarImg(){
+    if(hambre >= 65){
+        document.getElementById("zonaMascota").style.backgroundImage ="url('img/lujado.png')";
+    }
+    
+    if (sueno >= 35){
+        document.getElementById("zonaMascota").style.backgroundImage ="url('img/luca.png')";
+    }
+
+    if (salud >= 50){
+        document.getElementById("zonaMascota").style.backgroundImage ="url('img/lufer.png')";
+    }
+
+    if (diver >= 50){
+        document.getElementById("zonaMascota").style.backgroundImage ="url('img/luca.png')";
+    }
+
+    if (sucio >= 60){
+        document.getElementById("zonaMascota").style.backgroundImage ="url('img/lutri.png')";
+    }
+
+    if (musical >= 80){
+        document.getElementById("zonaMascota").style.backgroundImage ="url('img/lutri.png')";
+    }
+
+    if(musical < 80 && sucio < 60 && diver < 50 && salud < 50 && sueno == 0 && hambre < 65){
+            document.getElementById("zonaMascota").style.backgroundImage ="url('img/luma.png')";
+    }
+}
+
+
+</script>
+
+</head>
+
+<body>
+
+<h1>Lumina</h1>
+
+<div id="contenedor">
+
+    <div id="zonaMascota"
+         ondrop="dropHandler(event)"
+         ondragover="dragoverHandler(event)">
+         
+    </div>
+
+    <div id="panel">
+        
+        <label id="lblHambre">Hambre: </label>
+        <label id="lblPorcentajeHambre">50% </label>
+        <br></br>
+        <label id="lblSueno">Sueño: </label>
+        <label id="lblPorcentajeSueno">3% </label>
+        <br></br>
+        <label id="lblSalud">Salud: </label>
+        <label id="lblPorcentajeSalud">3% </label>
+        <br></br>
+        <label id="lblDiver">Diversion: </label>
+        <label id="lblPorcentajeDiver">3% </label>
+        <br></br>
+        <label id="lblSucio">Suciedad: </label>
+        <label id="lblPorcentajeSucio">3% </label>
+        <br></br>
+        <label id="lblMusical">Musicalidad: </label>
+        <label id="lblPorcentajeMusical">3% </label>
+
+
+    </div>
+
+</div>
+
+<div id="objetos">
+
+    <img
+        id="comida"
+        class="objeto"
+        src="img/gallet.png"
+        draggable="true"
+        ondragstart="dragstartHandler(event)"
+        
+    >
+
+    <img
+        id="cama"
+        class="objeto"
+        src="img/moa.png"
+        draggable="true"
+        ondragstart="dragstartHandler(event)"
+    >
+
+    <img
+        id="cura"
+        class="objeto"
+        src="img/dest.png"
+        draggable="true"
+        ondragstart="dragstartHandler(event)"
+    >
+
+    <img
+        id="juego"
+        class="objeto"
+        src="img/bola.png"
+        draggable="true"
+        ondragstart="dragstartHandler(event)"
+    >
+
+    <img
+        id="baño"
+        class="objeto"
+        src="img/baño.png"
+        draggable="true"
+        ondragstart="dragstartHandler(event)"
+    >
+
+    <img
+        id="musica"
+        class="objeto"
+        src="img/oca.png"
+        draggable="true"
+        ondragstart="dragstartHandler(event)"
+    >
+
+</div>
+
+</body>
+</html>
